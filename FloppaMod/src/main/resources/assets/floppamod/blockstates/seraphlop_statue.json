@@ -1,0 +1,28 @@
+{
+  "variants": {  	
+    "facing=north": {
+      "y": 0,
+      "model": "floppamod:block/seraphlop_statue"
+    },
+    "facing=south": {
+      "y": 180,
+      "model": "floppamod:block/seraphlop_statue"
+    },
+    "facing=east": {
+      "y": 90,
+      "model": "floppamod:block/seraphlop_statue"
+    },
+    "facing=west": {
+      "y": 270,
+      "model": "floppamod:block/seraphlop_statue"
+    },
+    "facing=up": {
+      "y": 0,
+      "model": "floppamod:block/seraphlop_statue"
+    },
+    "facing=down": {
+      "y": 0,
+      "model": "floppamod:block/seraphlop_statue"
+    }
+  }
+}

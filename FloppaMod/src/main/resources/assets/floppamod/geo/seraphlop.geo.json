@@ -1,0 +1,183 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [0, 1, 0]
+			},
+			"bones": [
+				{
+					"name": "Root",
+					"pivot": [0, 3.2, 0]
+				},
+				{
+					"name": "Body",
+					"parent": "Root",
+					"pivot": [0, -5.8, 0],
+					"cubes": [
+						{"origin": [-2, 7.2, -2], "size": [4, 1, 3], "uv": [36, 25]},
+						{"origin": [-2.5, 6.2, -2], "size": [5, 1, 3], "uv": [36, 30]},
+						{"origin": [-3, 0.2, -2], "size": [6, 6, 3], "uv": [0, 0]},
+						{"origin": [-2.5, -0.8, -2], "size": [5, 1, 3], "uv": [37, 36]},
+						{"origin": [-2, -1.8, -2], "size": [4, 1, 3], "uv": [35, 45]}
+					]
+				},
+				{
+					"name": "Ear1",
+					"parent": "Root",
+					"pivot": [-2.6, 6.9, 0],
+					"rotation": [0, 0, -60],
+					"cubes": [
+						{"origin": [-4.40622, 6.89641, -1], "size": [4, 8, 2], "uv": [24, 10]}
+					]
+				},
+				{
+					"name": "Ear1_2",
+					"parent": "Ear1",
+					"pivot": [-2.40622, 14.89641, 0],
+					"cubes": [
+						{"origin": [-3.40622, 14.89641, -1], "size": [2, 2, 2], "uv": [15, 36]}
+					]
+				},
+				{
+					"name": "Ear1Hairs",
+					"parent": "Ear1_2",
+					"pivot": [-2.40622, 16.89641, 1],
+					"cubes": [
+						{"origin": [-6.40622, 16.89641, 1], "size": [5, 6, 0.1], "uv": [24, 34]}
+					]
+				},
+				{
+					"name": "Ear2",
+					"parent": "Root",
+					"pivot": [2.58866, 6.92859, 0],
+					"rotation": [0, 0, 60],
+					"cubes": [
+						{"origin": [0.43338, 6.92319, -1], "size": [4, 8, 2], "uv": [24, 10]}
+					]
+				},
+				{
+					"name": "Ear2_2",
+					"parent": "Ear2",
+					"pivot": [2.43338, 14.92319, 0],
+					"cubes": [
+						{"origin": [1.43338, 14.92319, -1], "size": [2, 2, 2], "uv": [15, 36]}
+					]
+				},
+				{
+					"name": "Ear2Hairs",
+					"parent": "Ear2_2",
+					"pivot": [2.43338, 16.92319, 1],
+					"cubes": [
+						{"origin": [1.43338, 16.92319, 1], "size": [5, 6, 0.1], "uv": [24, 34], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear3",
+					"parent": "Root",
+					"pivot": [-3, 3.2, 0],
+					"rotation": [0, 0, -85],
+					"cubes": [
+						{"origin": [-5, 3.2, -1], "size": [4, 8, 2], "uv": [24, 10], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear3_2",
+					"parent": "Ear3",
+					"pivot": [-3, 11.2, 0],
+					"cubes": [
+						{"origin": [-4, 11.2, -1], "size": [2, 2, 2], "uv": [15, 36], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear3Hairs",
+					"parent": "Ear3_2",
+					"pivot": [-3, 13.2, 1],
+					"cubes": [
+						{"origin": [-7, 13.2, 1], "size": [5, 6, 0.1], "uv": [24, 34]}
+					]
+				},
+				{
+					"name": "Ear4",
+					"parent": "Root",
+					"pivot": [2.93621, 3.002, 0],
+					"rotation": [0, 0, 85],
+					"cubes": [
+						{"origin": [0.78673, 3.03036, -1], "size": [4, 8, 2], "uv": [24, 10], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear4_2",
+					"parent": "Ear4",
+					"pivot": [2.81429, 10.99174, 0],
+					"cubes": [
+						{"origin": [1.78673, 11.03036, -1], "size": [2, 2, 2], "uv": [15, 36]}
+					]
+				},
+				{
+					"name": "Ear4Hairs",
+					"parent": "Ear4_2",
+					"pivot": [2.71429, 13.09174, 0.9],
+					"cubes": [
+						{"origin": [1.78673, 13.03036, 1], "size": [5, 6, 0.1], "uv": [24, 34], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear5",
+					"parent": "Root",
+					"pivot": [-2.6, -0.8, 0],
+					"rotation": [0, 0, -107.5],
+					"cubes": [
+						{"origin": [-4.56841, -0.78029, -1], "size": [4, 8, 2], "uv": [24, 10]}
+					]
+				},
+				{
+					"name": "Ear5_2",
+					"parent": "Ear5",
+					"pivot": [-2.61008, 7.21971, 0],
+					"cubes": [
+						{"origin": [-3.56841, 7.21971, -1], "size": [2, 2, 2], "uv": [15, 36]}
+					]
+				},
+				{
+					"name": "Ear5Hairs",
+					"parent": "Ear5_2",
+					"pivot": [-2.61008, 9.21971, 1],
+					"cubes": [
+						{"origin": [-6.56841, 9.21971, 1], "size": [5, 6, 0.1], "uv": [24, 34]}
+					]
+				},
+				{
+					"name": "Ear6",
+					"parent": "Root",
+					"pivot": [2.58866, -0.77141, 0],
+					"rotation": [0, 0, 107.5],
+					"cubes": [
+						{"origin": [0.58688, -0.68679, -1], "size": [4, 8, 2], "uv": [24, 10], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear6_2",
+					"parent": "Ear6",
+					"pivot": [2.58688, 7.31321, 0],
+					"cubes": [
+						{"origin": [1.58688, 7.31321, -1], "size": [2, 2, 2], "uv": [15, 36], "mirror": true}
+					]
+				},
+				{
+					"name": "Ear6Hairs",
+					"parent": "Ear6_2",
+					"pivot": [2.58688, 9.31321, 1],
+					"cubes": [
+						{"origin": [1.58688, 9.31321, 1], "size": [5, 6, 0.1], "uv": [24, 34], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

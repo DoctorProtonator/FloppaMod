@@ -1,0 +1,24 @@
+{
+	"item.floppamod.shrimp": "Shrimp",
+	"item.floppamod.cooked_shrimp": "Cooked Shrimp",
+	"item.floppamod.cement_bag": "Cement Bag",
+	"item.floppamod.flop": "Flop",
+	
+	"itemGroup.floppa_mod": "Floppa Mod",
+	
+	"item.floppamod.big_floppa_spawn_egg": "Big Floppa Spawn Egg",
+	"item.floppamod.seraphlop_spawn_egg": "Seraphlop Spawn Egg",
+	"item.floppamod.seraphlop_statue": "Seraphlop Statue",
+	
+	"block.floppamod.seraphlop_statue": "Seraphlop Statue",
+	
+	"entity.floppamod.big_floppa": "Big Floppa",
+	"entity.floppamod.seraphlop": "Seraphlop",
+	
+	"item.karr_1": "Karr 1",
+	"item.karr_1.sub": "Caracal karrs",
+	"item.chhh": "Chhh",
+	"item.chhh.sub": "Caracal hisses",
+	"item.floppa_growl": "Caracal growl",
+	"item.floppa_growl.sub": "Caracal growls"
+}

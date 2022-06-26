@@ -1,0 +1,19 @@
+{
+	"item.karr_1": {
+		"sounds": [
+			"floppamod:item.karr_1"
+		]
+	},
+	
+	"item.chhh": {
+		"sounds": [
+			"floppamod:item.chhh"
+		]
+	},
+	
+	"item.floppa_growl": {
+		"sounds": [
+			"floppamod:item.floppa_growl"
+		]
+	}
+}
