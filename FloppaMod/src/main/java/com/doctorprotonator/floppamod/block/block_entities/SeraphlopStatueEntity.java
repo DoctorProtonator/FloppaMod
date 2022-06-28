@@ -8,7 +8,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -41,14 +45,14 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
 	protected void saveAdditional(CompoundTag nbt)
 	{
 		super.saveAdditional(nbt);
-		nbt.putBoolean("bossSpawned", bossSpawned);
+		nbt.putBoolean("isActivated", isActivated);
 	}
 	
 	@Override
 	public void load(CompoundTag nbt)
 	{
 		super.load(nbt);
-		nbt.getBoolean("bossSpawned");
+		nbt.getBoolean("isActivated");
 	}
 
 	@Override
@@ -60,9 +64,9 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
 	
 	private <E extends SeraphlopStatueEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        if(!isActivated)
+        if(isActivated == true && bossSpawned == false)
         {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.seraphlop_statue.idle", false));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.seraphlop_statue.idle", true));
         }
         else
         {
@@ -87,9 +91,9 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
 		double y = blockPos.getY();
 		double z = blockPos.getZ();
 		
-		this.level.addFreshEntity(boss);
 		boss.setAggressive(true);
 		boss.setPosRaw(x, y + 3, z);
+		this.level.addFreshEntity(boss);
 	}
 
 	@Override
@@ -98,8 +102,26 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
 		return this.factory;
 	}
 
-	public static void tick()
+	public void tick()
 	{
-		
+		if(isActivated == true && bossSpawned == false)
+		{
+			spawnBoss();
+			bossSpawned = true;
+			setChanged();
+		}
+	}
+	
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket()
+	{
+		saveAdditional(getTileData());
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+	
+	@Override
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt)
+	{
+		load(pkt.getTag());
 	}
 }

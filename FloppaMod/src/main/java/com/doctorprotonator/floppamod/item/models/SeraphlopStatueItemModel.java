@@ -13,19 +13,17 @@ public class SeraphlopStatueItemModel extends AnimatedGeoModel<SeraphlopStatueIt
 	public ResourceLocation getAnimationFileLocation(SeraphlopStatueItem animatable)
 	{
 		return new ResourceLocation(FloppaMod.MOD_ID, "animations/seraphlop_statue.animation.json");
-		
 	}
 
 	@Override
 	public ResourceLocation getModelLocation(SeraphlopStatueItem object)
 	{
 		return new ResourceLocation(FloppaMod.MOD_ID, "geo/seraphlop_statue.geo.json");
-		
 	}
 
 	@Override
 	public ResourceLocation getTextureLocation(SeraphlopStatueItem object)
 	{
-		return new ResourceLocation(FloppaMod.MOD_ID, "textures/seraphlop_statue.png");
+		return new ResourceLocation(FloppaMod.MOD_ID, "textures/item/seraphlop_statue.png");
 	}
 }

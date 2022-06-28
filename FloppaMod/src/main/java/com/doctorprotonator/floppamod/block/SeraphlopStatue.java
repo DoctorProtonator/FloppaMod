@@ -35,13 +35,13 @@ public class SeraphlopStatue extends DirectionalBlock implements EntityBlock
 		return BlockEntityInit.SERAPHLOP_STATUE_ENTITY.get().create(blockPos, blockState);
 	}
 	
-	/*@Override
+	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
 			BlockEntityType<T> type)
 	{
 		return level.isClientSide ? null : (level0, pos, state0, blockEntity) ->
 		((SeraphlopStatueEntity)blockEntity).tick();
-	}*/
+	}
 	
 	@Override
 	public RenderShape getRenderShape(BlockState blockState)
@@ -63,15 +63,23 @@ public class SeraphlopStatue extends DirectionalBlock implements EntityBlock
 	public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player,
 			InteractionHand hand, BlockHitResult blockHitRes)
 	{
+		final var seraphlopStatuteEntity = (SeraphlopStatueEntity) level.getBlockEntity(blockPos);
+		
 		if(!level.isClientSide() && hand == InteractionHand.MAIN_HAND)
 		{
 			ItemStack itemstack = player.getItemInHand(hand);
 		    if(itemstack.is(Items.BLAZE_ROD))
 		    {
-		    	level.getBlockEntity(blockPos, BlockEntityInit.SERAPHLOP_STATUE_ENTITY.get()).get().isActivated = true;
-		    	level.getBlockEntity(blockPos, BlockEntityInit.SERAPHLOP_STATUE_ENTITY.get()).get().setChanged();
+		    	seraphlopStatuteEntity.isActivated = true;
+		    	seraphlopStatuteEntity.setChanged();
+		    	level.blockUpdated(blockPos, this);
+		    	System.out.println("USE METHOD, ACTIVATED");
 		    }
+		    return InteractionResult.SUCCESS;
 		}
-		return InteractionResult.SUCCESS;
+		else
+		{
+			return InteractionResult.PASS;
+		}
 	}
 }
