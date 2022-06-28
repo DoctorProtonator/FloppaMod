@@ -1,26 +1,7 @@
 {
-  "minecraft:nether/obtain_blaze_rod": {
-    "criteria": {
-      "blaze_rod": "2022-06-28 11:27:37 +0200"
-    },
-    "done": true
-  },
-  "minecraft:recipes/brewing/blaze_powder": {
-    "criteria": {
-      "has_blaze_rod": "2022-06-28 11:27:37 +0200"
-    },
-    "done": true
-  },
-  "minecraft:recipes/brewing/brewing_stand": {
-    "criteria": {
-      "has_blaze_rod": "2022-06-28 11:27:37 +0200"
-    },
-    "done": true
-  },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:forest": "2022-06-28 11:26:35 +0200",
-      "minecraft:plains": "2022-06-28 11:26:44 +0200"
+      "minecraft:plains": "2022-06-28 11:36:06 +0200"
     },
     "done": false
   },
