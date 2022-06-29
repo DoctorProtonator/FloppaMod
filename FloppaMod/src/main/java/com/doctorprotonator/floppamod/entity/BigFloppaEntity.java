@@ -101,7 +101,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 		
 		if(this.isSitting())
 		{
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("sitting.big_floppa.anim", true));
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.big_floppa.sitting", true));
 			event.getController().setAnimationSpeed(1f);
 		}
 		

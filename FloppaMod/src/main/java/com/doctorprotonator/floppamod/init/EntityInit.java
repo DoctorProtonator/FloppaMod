@@ -3,6 +3,7 @@ package com.doctorprotonator.floppamod.init;
 import com.doctorprotonator.floppamod.FloppaMod;
 import com.doctorprotonator.floppamod.entity.BigFloppaEntity;
 import com.doctorprotonator.floppamod.entity.SeraphlopEntity;
+import com.doctorprotonator.floppamod.entity.SeraphlopObelisk;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -29,4 +30,10 @@ public final class EntityInit
 			.of(SeraphlopEntity::new, MobCategory.MONSTER)
 			.sized(2.3f, 3.5f)
 			.build(new ResourceLocation(FloppaMod.MOD_ID, "seraphlop").toString()));
+	
+	public static final RegistryObject<EntityType<SeraphlopObelisk>> SERAPHLOP_OBELISK =
+			ENTITIES.register("seraphlop_obelisk", () -> EntityType.Builder
+			.of(SeraphlopObelisk::new, MobCategory.AMBIENT)
+			.sized(6f, 10f)
+			.build(new ResourceLocation(FloppaMod.MOD_ID, "seraphlop_obelisk").toString()));
 }

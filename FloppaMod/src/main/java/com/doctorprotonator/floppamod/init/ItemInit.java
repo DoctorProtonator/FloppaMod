@@ -59,11 +59,16 @@ public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Forge
 	
 	// Big Floppa
 	public static final RegistryObject<Item> BIG_FLOPPA_SPAWN_EGG = ITEMS.register("big_floppa_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityInit.BIG_FLOPPA,0xa3855f, 0x58412b,
+            () -> new ForgeSpawnEggItem(EntityInit.BIG_FLOPPA, 0xa3855f, 0x58412b,
                     new Item.Properties().tab(FloppaMod.FLOPPAMOD_TAB)));
 	
 	//Seraphlop
 	public static final RegistryObject<Item> SERAPHLOP_SPAWN_EGG = ITEMS.register("seraphlop_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityInit.SERAPHLOP,0xa3855f, 0x58412b,
+            () -> new ForgeSpawnEggItem(EntityInit.SERAPHLOP, 0xa3855f, 0x58412b,
+                    new Item.Properties().tab(FloppaMod.FLOPPAMOD_TAB)));
+	
+	//Seraphlop Obelisk
+	public static final RegistryObject<Item> SERAPHLOP_OBELISK = ITEMS.register("seraphlop_obelisk",
+            () -> new ForgeSpawnEggItem(EntityInit.SERAPHLOP_OBELISK, 0xa3855f, 0x58412b,
                     new Item.Properties().tab(FloppaMod.FLOPPAMOD_TAB)));
 }

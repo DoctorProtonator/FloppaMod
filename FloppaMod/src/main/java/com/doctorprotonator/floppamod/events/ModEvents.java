@@ -3,6 +3,8 @@ package com.doctorprotonator.floppamod.events;
 import com.doctorprotonator.floppamod.FloppaMod;
 import com.doctorprotonator.floppamod.entity.BigFloppaEntity;
 import com.doctorprotonator.floppamod.entity.SeraphlopEntity;
+import com.doctorprotonator.floppamod.entity.SeraphlopObelisk;
+import com.doctorprotonator.floppamod.entity.models.SeraphlopObeliskModel;
 import com.doctorprotonator.floppamod.init.EntityInit;
 
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -18,5 +20,6 @@ public class ModEvents
 	{
 		event.put(EntityInit.BIG_FLOPPA.get(), BigFloppaEntity.createAttributes().build());
 		event.put(EntityInit.SERAPHLOP.get(), SeraphlopEntity.createAttributes().build());
+		event.put(EntityInit.SERAPHLOP_OBELISK.get(), SeraphlopObelisk.createAttributes().build());
 	}
 }

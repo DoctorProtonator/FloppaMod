@@ -1,9 +1,15 @@
 package com.doctorprotonator.floppamod.entity;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ambient.AmbientCreature;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -14,29 +20,23 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class SeraphlopObelisk extends Entity implements IAnimatable
+public class SeraphlopObelisk extends AmbientCreature implements IAnimatable
 {
 	private AnimationFactory factory = new AnimationFactory(this);
 	
-	public SeraphlopObelisk(EntityType<? extends Entity> entityType, Level level)
+	public SeraphlopObelisk(EntityType<? extends AmbientCreature> entityType, Level level)
 	{
 		super(entityType, level);
+	}
+	
+	public static AttributeSupplier.Builder createAttributes()
+	{
+		return Mob.createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 50.0f);
 	}
 
 	@Override
 	protected void defineSynchedData()
-	{
-		
-	}
-
-	@Override
-	protected void readAdditionalSaveData(CompoundTag p_20052_)
-	{
-		
-	}
-
-	@Override
-	protected void addAdditionalSaveData(CompoundTag p_20139_)
 	{
 		
 	}
