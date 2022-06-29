@@ -1,7 +1,8 @@
 {
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "minecraft:plains": "2022-06-28 11:36:06 +0200"
+      "minecraft:forest": "2022-06-29 20:06:22 +0200",
+      "minecraft:desert": "2022-06-29 20:06:28 +0200"
     },
     "done": false
   },
