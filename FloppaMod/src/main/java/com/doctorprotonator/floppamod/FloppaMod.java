@@ -1,7 +1,5 @@
 package com.doctorprotonator.floppamod;
 
-import java.util.logging.LogManager;
-
 import org.apache.logging.log4j.Logger;
 
 import com.doctorprotonator.floppamod.init.BlockEntityInit;
