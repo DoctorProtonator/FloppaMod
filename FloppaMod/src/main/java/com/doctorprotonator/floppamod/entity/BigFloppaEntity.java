@@ -1,15 +1,18 @@
 package com.doctorprotonator.floppamod.entity;
 
+import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
+import com.doctorprotonator.floppamod.entity.goals.FloppaLieOnBedGoal;
 import com.doctorprotonator.floppamod.entity.goals.HissGoal;
 import com.doctorprotonator.floppamod.init.EntityInit;
 import com.doctorprotonator.floppamod.init.ItemInit;
 import com.doctorprotonator.floppamod.init.SoundInit;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +21,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
@@ -32,9 +37,11 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.CatLieOnBedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -49,12 +56,22 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
@@ -83,6 +100,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 	private UUID persistentAngerTarget;
 	
 	private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(BigFloppaEntity.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> LYING = SynchedEntityData.defineId(BigFloppaEntity.class, EntityDataSerializers.BOOLEAN);
 	
 	public BigFloppaEntity(EntityType<? extends TamableAnimal> entityType, Level level)
 	{
@@ -91,7 +109,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 	
 	private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
 	{
-		if(event.isMoving() && this.isSitting() == false)
+		if(event.isMoving() && this.isSitting() == false && this.isLying() == false)
 		{
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("walking.big_floppa.anim", true));
 			event.getController().setAnimationSpeed(2.7f);
@@ -111,6 +129,12 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 				event.getController().setAnimationSpeed(1f);
 				return PlayState.CONTINUE;
 			}
+		}
+		else if(this.isLying() == true)
+		{
+			event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.big_floppa.lying", true));
+			event.getController().setAnimationSpeed(1f);
+			return PlayState.CONTINUE;
 		}
 		else
 		{
@@ -165,6 +189,8 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 				
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+		this.goalSelector.addGoal(2, new BigFloppaEntity.FloppaRelaxOnOwnerGoal(this));
+		this.goalSelector.addGoal(5, new FloppaLieOnBedGoal(this, 1.1D, 8));
 		this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.4F));
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.8D, true));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 1.2f));
@@ -250,6 +276,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 	    super.defineSynchedData();
 	    this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
 	    this.entityData.define(SITTING, false);
+	    this.entityData.define(LYING, false);
 	}
 	
 	@Override
@@ -257,6 +284,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 	{
 		super.readAdditionalSaveData(tag);
 		setSitting(tag.getBoolean("isSitting"));
+		setLying(tag.getBoolean("isLying"));
 	}
 	
 	@Override
@@ -264,12 +292,23 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 	{
 		super.addAdditionalSaveData(tag);
 		tag.putBoolean("isSitting", this.isSitting());
+		tag.putBoolean("isLyinh", this.isLying());
+	}
+	
+	public boolean isLying()
+	{
+		return this.entityData.get(LYING);
 	}
 	
 	public void setSitting(boolean sitting)
 	{
 		this.entityData.set(SITTING, sitting);
 		this.setOrderedToSit(sitting);
+	}
+	
+	public void setLying(boolean lying)
+	{
+		this.entityData.set(LYING, lying);
 	}
 	
 	public boolean isSitting()
@@ -371,8 +410,8 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 
     public void tick()
     {
-    	BigFloppaEntity.this.setTarget((LivingEntity)null);
-        super.tick();
+    	//BigFloppaEntity.this.setTarget((LivingEntity)null);
+    	super.tick();
     }
 	
     @Override
@@ -410,6 +449,130 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 	{
 		this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
 	}
+	
+	static class FloppaRelaxOnOwnerGoal extends Goal
+	{
+	      private final BigFloppaEntity floppa;
+	      @Nullable
+	      private Player ownerPlayer;
+	      @Nullable
+	      private BlockPos goalPos;
+	      private int onBedTicks;
+
+	      public FloppaRelaxOnOwnerGoal(BigFloppaEntity floppa)
+	      {
+	         this.floppa = floppa;
+	      }
+
+	      public boolean canUse()
+	      {
+	         if (!this.floppa.isTame())
+	         {
+	            return false;
+	         }
+	         else if (this.floppa.isOrderedToSit())
+	         {
+	            return false;
+	         }
+	         else
+	         {
+	            LivingEntity livingentity = this.floppa.getOwner();
+	            if (livingentity instanceof Player)
+	            {
+	               this.ownerPlayer = (Player)livingentity;
+	               
+	               if (!livingentity.isSleeping())
+	               {
+	                  return false;
+	               }
+
+	               if (this.floppa.distanceToSqr(this.ownerPlayer) > 100.0D)
+	               {
+	                  return false;
+	               }
+
+	               BlockPos blockpos = this.ownerPlayer.blockPosition();
+	               BlockState blockstate = this.floppa.level.getBlockState(blockpos);
+	               
+	               if (blockstate.is(BlockTags.BEDS))
+	               {
+	                  this.goalPos = blockstate.getOptionalValue(BedBlock.FACING).map((p_28209_) ->
+	                  {
+	                     return blockpos.relative(p_28209_.getOpposite());
+	                  })
+	                		  .orElseGet(() ->
+	                  {
+	                     return new BlockPos(blockpos);
+	                  });
+	                  return !this.spaceIsOccupied();
+	               }
+	            }
+
+	            return false;
+	         }
+	      }
+
+	      private boolean spaceIsOccupied()
+	      {
+	         for(BigFloppaEntity floppa : this.floppa.level.getEntitiesOfClass(BigFloppaEntity.class, (new AABB(this.goalPos)).inflate(2.0D)))
+	         {
+	            if (floppa != this.floppa && (floppa.isLying()))
+	            {
+	               return true;
+	            }
+	         }
+
+	         return false;
+	      }
+
+	      public boolean canContinueToUse()
+	      {
+	         return this.floppa.isTame() && !this.floppa.isOrderedToSit() && this.ownerPlayer != null && this.ownerPlayer.isSleeping() && this.goalPos != null && !this.spaceIsOccupied();
+	      }
+
+	      public void start()
+	      {
+	         if (this.goalPos != null)
+	         {
+	            this.floppa.setInSittingPose(false);
+	            this.floppa.getNavigation().moveTo((double)this.goalPos.getX(), (double)this.goalPos.getY(), (double)this.goalPos.getZ(), (double)1.1F);
+	         }
+	      }
+
+	      public void stop()
+	      {
+	         this.floppa.setLying(false);
+	         
+	         this.onBedTicks = 0;
+	         this.floppa.getNavigation().stop();
+	      }
+
+	      public void tick()
+	      {
+	         if (this.ownerPlayer != null && this.goalPos != null)
+	         {
+	            this.floppa.setInSittingPose(false);
+	            this.floppa.getNavigation().moveTo((double)this.goalPos.getX(), (double)this.goalPos.getY(), (double)this.goalPos.getZ(), (double)1.1F);
+	            
+	            if (this.floppa.distanceToSqr(this.ownerPlayer) < 2.5D)
+	            {
+	               ++this.onBedTicks;
+	               
+	               if (this.onBedTicks > this.adjustedTickDelay(16))
+	               {
+	                  this.floppa.setLying(true);
+	               } else
+	               {
+	                  this.floppa.lookAt(this.ownerPlayer, 45.0F, 45.0F);
+	               }
+	            }
+	            else
+	            {
+	               this.floppa.setLying(false);
+	            }
+	         }
+	      }
+	   }
 	
 	/*@Override
 	public InteractionResult mobInteract(Player player, InteractionHand hand)

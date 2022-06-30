@@ -540,6 +540,68 @@
 					}
 				}
 			}
+		},
+		"animation.big_floppa.lying": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"Root": {
+					"rotation": {
+						"vector": [0, 0, -90]
+					},
+					"position": {
+						"vector": [11, 3.9, 1]
+					}
+				},
+				"Head": {
+					"rotation": {
+						"vector": [0, 0, 15]
+					},
+					"position": {
+						"vector": [-0.7, -0.6, 0]
+					}
+				},
+				"LegFL1": {
+					"rotation": {
+						"vector": [-39.56869, 6.40865, 7.69263]
+					}
+				},
+				"LegFL2": {
+					"rotation": {
+						"vector": [14.78217, -2.57594, 9.6658]
+					}
+				},
+				"LegFR1": {
+					"rotation": {
+						"vector": [-42.47283, -1.68868, -1.84373]
+					}
+				},
+				"LegFR2": {
+					"rotation": {
+						"vector": [15, 0, 0]
+					}
+				},
+				"LegBL1": {
+					"rotation": {
+						"vector": [-14.78217, 2.57594, 9.6658]
+					}
+				},
+				"LegBL3": {
+					"rotation": {
+						"vector": [0, 0, 20]
+					}
+				},
+				"LegBR1": {
+					"rotation": {
+						"vector": [-14.98637, -0.64686, -2.41492]
+					}
+				},
+				"Tail": {
+					"rotation": {
+						"vector": [0, -32.5, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2
