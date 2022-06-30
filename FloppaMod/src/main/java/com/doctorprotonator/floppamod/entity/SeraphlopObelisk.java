@@ -36,12 +36,6 @@ public class SeraphlopObelisk extends AmbientCreature implements IAnimatable
 	}
 
 	@Override
-	protected void defineSynchedData()
-	{
-		
-	}
-
-	@Override
 	public Packet<?> getAddEntityPacket()
 	{
 		return NetworkHooks.getEntitySpawningPacket(this);

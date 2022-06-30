@@ -27,6 +27,7 @@ public class HissGoal extends Goal
    private final boolean onlyHorizontal;
    protected final Class<? extends LivingEntity> lookAtType;
    protected final TargetingConditions lookAtContext;
+   
    public static boolean isHissing = false;
 
    public HissGoal(Mob floppa, Class<? extends LivingEntity> lookAtType, float lookDistance)

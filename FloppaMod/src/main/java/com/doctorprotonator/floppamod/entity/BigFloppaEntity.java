@@ -89,31 +89,56 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
 		super(entityType, level);
 	}
 	
-	
 	private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
 	{
-		if(event.isMoving())
+		if(event.isMoving() && this.isSitting() == false)
 		{
 			event.getController().setAnimation(new AnimationBuilder().addAnimation("walking.big_floppa.anim", true));
 			event.getController().setAnimationSpeed(2.7f);
 			return PlayState.CONTINUE;
 		}
-		
-		if(this.isSitting())
+		else if(this.isSitting() == true)
 		{
-			event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.big_floppa.sitting", true));
-			event.getController().setAnimationSpeed(1f);
+			if(HissGoal.isHissing == true)
+			{
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.big_floppa.hissing_sit", false));
+				event.getController().setAnimationSpeed(.15f);
+				return PlayState.CONTINUE;
+			}
+			else
+			{
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.big_floppa.sitting", true));
+				event.getController().setAnimationSpeed(1f);
+				return PlayState.CONTINUE;
+			}
 		}
-		
-		event.getController().setAnimation(new AnimationBuilder().addAnimation("idle.big_floppa.anim", true));
-		event.getController().setAnimationSpeed(1f);
-		return PlayState.CONTINUE;
+		else
+		{
+			if(HissGoal.isHissing == true)
+			{
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.big_floppa.hissing_idle", false));
+				event.getController().setAnimationSpeed(.15f);
+				return PlayState.CONTINUE;
+			}
+			else
+			{
+				event.getController().setAnimation(new AnimationBuilder().addAnimation("idle.big_floppa.anim", true));
+				event.getController().setAnimationSpeed(1f);
+				return PlayState.CONTINUE;
+			}
+		}
 	}
 	
 	@Override
 	public void registerControllers(AnimationData data)
 	{
 		data.addAnimationController(new AnimationController<BigFloppaEntity>(this, "controller", 0, this::predicate));
+	}
+	
+	@Override
+	public boolean causeFallDamage(float p_147187_, float p_147188_, DamageSource p_147189_)
+	{
+		return false;
 	}
 
 	@Override
@@ -307,6 +332,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
    {
 	   if(this.entityData.get(DATA_REMAINING_ANGER_TIME) < 0)
 	   {
+		   System.out.println("INCAZZATO");
 		   return true;
 	   }
 	   else
@@ -352,7 +378,7 @@ public class BigFloppaEntity extends TamableAnimal implements NeutralMob, IAnima
     @Override
     public Packet<?> getAddEntityPacket()
     {
-      return NetworkHooks.getEntitySpawningPacket(this);
+    	return NetworkHooks.getEntitySpawningPacket(this);
     }
 	
 	@Override

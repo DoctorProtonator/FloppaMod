@@ -33,7 +33,7 @@ public final class EntityInit
 	
 	public static final RegistryObject<EntityType<SeraphlopObelisk>> SERAPHLOP_OBELISK =
 			ENTITIES.register("seraphlop_obelisk", () -> EntityType.Builder
-			.of(SeraphlopObelisk::new, MobCategory.AMBIENT)
+			.of(SeraphlopObelisk::new, MobCategory.MISC)
 			.sized(6f, 10f)
 			.build(new ResourceLocation(FloppaMod.MOD_ID, "seraphlop_obelisk").toString()));
 }

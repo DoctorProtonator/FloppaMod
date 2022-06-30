@@ -381,6 +381,165 @@
 					}
 				}
 			}
+		},
+		"animation.big_floppa.hissing_idle": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"UpperJaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-7.5, 0, 0],
+							"easing": "easeOutSine"
+						}
+					}
+				},
+				"LowerJaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [57.5, 0, 0],
+							"easing": "easeOutSine"
+						}
+					}
+				}
+			}
+		},
+		"animation.big_floppa.hissing_sit": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"bones": {
+				"Body": {
+					"position": {
+						"vector": [0, -7.9, 0]
+					}
+				},
+				"Head": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"LegFL1": {
+					"rotation": {
+						"vector": [0, 0, -20]
+					},
+					"position": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"LegFL2": {
+					"rotation": {
+						"vector": [-85.23619, 14.0761, -0.6469]
+					},
+					"position": {
+						"vector": [0.18794, -0.0684, -1.1]
+					}
+				},
+				"PawFL": {
+					"rotation": {
+						"vector": [85.83039, -22.3737, -4.42259]
+					},
+					"position": {
+						"vector": [0.41042, 0.19581, -1.1105]
+					}
+				},
+				"LegFR1": {
+					"rotation": {
+						"vector": [0, 0, 20]
+					},
+					"position": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"LegFR2": {
+					"rotation": {
+						"vector": [-85.23619, -14.0761, 0.6469]
+					},
+					"position": {
+						"vector": [0, 0, -2]
+					}
+				},
+				"PawFR": {
+					"rotation": {
+						"vector": [83.3996, 22.49925, 5.81076]
+					},
+					"position": {
+						"vector": [-0.41042, 0.19581, -1.1105]
+					}
+				},
+				"LegBL1": {
+					"position": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"LegBL3": {
+					"rotation": {
+						"vector": [-65, -17.5, 0]
+					},
+					"position": {
+						"vector": [0, 2, -2]
+					}
+				},
+				"PawBL": {
+					"rotation": {
+						"vector": [65, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0.33809, -0.72505]
+					}
+				},
+				"LegBR1": {
+					"position": {
+						"vector": [0, 1, 0]
+					}
+				},
+				"LegBR3": {
+					"rotation": {
+						"vector": [-65, 17.5, 0]
+					},
+					"position": {
+						"vector": [0, 2, -2]
+					}
+				},
+				"PawBR": {
+					"rotation": {
+						"vector": [65, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0.33809, -0.72505]
+					}
+				},
+				"Tail": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"UpperJaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [-7.5, 0, 0]
+						}
+					}
+				},
+				"LowerJaw": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [57.5, 0, 0]
+						}
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

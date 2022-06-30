@@ -28,6 +28,7 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
 	BlockPos blockPos;
 	BlockState blockState;
 	double eventKeyframe = 360d;
+	int counter = 0;
 	
 	public boolean isActivated = false;
 	private boolean bossSpawned = false;
@@ -66,22 +67,14 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
     {
         if(isActivated == true && bossSpawned == false)
         {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.seraphlop_statue.idle", true));
+        	event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.seraphlop_statue.awakening", false));
+        	return PlayState.CONTINUE;
         }
         else
         {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.seraphlop_statue.awakening", false));
- 
-            if(event.getAnimationTick() == eventKeyframe)
-            {
-                final LocalPlayer player = Minecraft.getInstance().player;
-                if (player != null)
-                {
-                    player.displayClientMessage(new TextComponent("DO NOT BE AFRAID."), true);
-                }
-            }
+        	event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.seraphlop_statue.idle", true));
+        	return PlayState.CONTINUE;
         }
-        return PlayState.CONTINUE;
     }
 	
 	private void spawnBoss()
@@ -106,9 +99,16 @@ public class SeraphlopStatueEntity extends BlockEntity implements IAnimatable
 	{
 		if(isActivated == true && bossSpawned == false)
 		{
-			spawnBoss();
-			bossSpawned = true;
-			setChanged();
+			if(counter < 360)
+			{
+				counter++;
+			}
+			else
+			{
+				spawnBoss();
+				bossSpawned = true;
+				setChanged();
+			}
 		}
 	}
 	

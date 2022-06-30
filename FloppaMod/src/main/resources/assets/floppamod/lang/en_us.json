@@ -14,11 +14,9 @@
 	
 	"entity.floppamod.big_floppa": "Big Floppa",
 	"entity.floppamod.seraphlop": "Seraphlop",
+	"entity.floppamod.seraphlop_obelisk": "Seraphlop Obelisk",
 	
-	"item.karr_1": "Karr 1",
-	"item.karr_1.sub": "Caracal karrs",
-	"item.chhh": "Chhh",
-	"item.chhh.sub": "Caracal hisses",
-	"item.floppa_growl": "Caracal growl",
-	"item.floppa_growl.sub": "Caracal growls"
+	"sounds.floppamod.karr_1": "Caracal karrs",
+	"sounds.floppamod.chhh": "Caracal hisses",
+	"sounds.floppamod.growl": "Caracal growl"
 }

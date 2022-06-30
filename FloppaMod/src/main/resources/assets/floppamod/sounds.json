@@ -1,19 +1,22 @@
 {
-	"item.karr_1": {
+	"karr_1": {
+		"subtitle": "sounds.floppamod.karr_1",
 		"sounds": [
-			"floppamod:item.karr_1"
+			"floppamod:karr_1"
 		]
 	},
 	
-	"item.chhh": {
+	"chhh": {
+		"subtitle": "sounds.floppamod.karr_1",
 		"sounds": [
-			"floppamod:item.chhh"
+			"floppamod:chhh"
 		]
 	},
 	
-	"item.floppa_growl": {
+	"floppa_growl": {
+		"subtitle": "sounds.floppamod.karr_1",
 		"sounds": [
-			"floppamod:item.floppa_growl"
+			"floppamod:floppa_growl"
 		]
 	}
 }

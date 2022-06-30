@@ -2,6 +2,7 @@ package com.doctorprotonator.floppamod;
 
 import org.apache.logging.log4j.Logger;
 
+import com.doctorprotonator.floppamod.entity.renderers.SeraphlopObeliskRenderer;
 import com.doctorprotonator.floppamod.init.BlockEntityInit;
 import com.doctorprotonator.floppamod.init.BlockInit;
 import com.doctorprotonator.floppamod.init.EntityInit;
@@ -9,6 +10,7 @@ import com.doctorprotonator.floppamod.init.ItemInit;
 import com.doctorprotonator.floppamod.init.SoundInit;
 import com.doctorprotonator.floppamod.init.StructuresInit;
 
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.CreativeModeTab;
@@ -50,7 +52,6 @@ public class FloppaMod
 		BlockEntityInit.BLOCK_ENTITIES.register(bus);
 		EntityInit.ENTITIES.register(bus);
 		StructuresInit.DEFERRED_REGISTRY_STRUCTURE.register(bus);
-		
 		GeckoLib.initialize();
 		
 		MinecraftForge.EVENT_BUS.register(this);

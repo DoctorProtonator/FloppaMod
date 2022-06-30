@@ -4,9 +4,11 @@ import com.doctorprotonator.floppamod.FloppaMod;
 import com.doctorprotonator.floppamod.block.block_entities.renderers.SeraphlopStatueRenderer;
 import com.doctorprotonator.floppamod.entity.renderers.BigFloppaEntityRenderer;
 import com.doctorprotonator.floppamod.entity.renderers.SeraphlopEntityRenderer;
+import com.doctorprotonator.floppamod.entity.renderers.SeraphlopObeliskRenderer;
 import com.doctorprotonator.floppamod.init.BlockEntityInit;
 import com.doctorprotonator.floppamod.init.EntityInit;
 
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,6 +25,7 @@ public final class ClientModEvents
 	{
 		event.registerEntityRenderer(EntityInit.BIG_FLOPPA.get(), BigFloppaEntityRenderer::new);
 		event.registerEntityRenderer(EntityInit.SERAPHLOP.get(), SeraphlopEntityRenderer::new);
+		event.registerEntityRenderer(EntityInit.SERAPHLOP_OBELISK.get(), SeraphlopObeliskRenderer::new);
 		event.registerBlockEntityRenderer(BlockEntityInit.SERAPHLOP_STATUE_ENTITY.get(), SeraphlopStatueRenderer::new);
 	}
 }
